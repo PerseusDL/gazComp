@@ -16,7 +16,6 @@ body {
 	margin-top: -48px;
 	background-color: rgba( 0,0,0,0.5 );
 	z-index: 9999;
-	float: left;
 }
 #gazComp .choice {
 	padding: 20px;

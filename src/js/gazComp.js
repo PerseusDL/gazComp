@@ -2,18 +2,27 @@ var gazComp = gazComp || { REVISION: '1' }
 
 gazComp.Data = function( _id ) {
 	this.id = _id;
-	this.sample = {
-		
-	}
+	this.sample = {}
 	console.log( this.id );
 }
-gazComp.Data.prototype.get = function() {}
+gazComp.Data.prototype.get = function( _url) {
+	$.ajax({
+		type: 'get',
+		url: _url,
+		//timeout: 5000,
+		dataType: 'jsonp',
+		success: function( _data ) {
+			console.log( _data );
+		}
+}
 gazComp.Data.prototype.data = function() {}
 
 gazComp.GeonamesData = function( _id ) {}
 gazComp.GeonamesData.prototype.get = function() {}
 
-gazComp.PleiadesData = function( _id ) {}
+gazComp.PleiadesData = function( _id ) {
+	//reprPoint = coordData
+}
 gazComp.PleiadesData.prototype.get = function() {}
 
 /**
@@ -35,9 +44,9 @@ gazComp.App = function( _rootId, _outputUri ) {
  * @param { Obj } _outputUri	The uri to send choice output 
  */
 gazComp.App.prototype.compare = function( _g1, _g2 ) {
-	//------------------------------------------------------------
-	//  Determine source
-	//------------------------------------------------------------
+	if ( this.totalComp == 0 ) {
+		this.mapInit();
+	}
 	if ( this.totalComp != 0 ) {
 		this.reset();
 	}
@@ -45,13 +54,26 @@ gazComp.App.prototype.compare = function( _g1, _g2 ) {
 	//  Retrieve data from the data source
 	//------------------------------------------------------------
 	this.start();
-	this.totalComp = 1;
+	this.totalComp += 1;
+}
+
+/**
+ * Initialize the google maps API
+ */
+gazComp.App.prototype.mapInit = function() {
+  var mapOptions = {
+	center: new google.maps.LatLng( -34.397, 150.644 ),
+	zoom: 8
+  };
+  this.map = new google.maps.Map( document.getElementById("map"), mapOptions );
 }
 
 /**
  * Clear the map and list
  */
-gazComp.App.prototype.reset = function() {}
+gazComp.App.prototype.reset = function() {
+	
+}
 
 /**
  * Start the click listeners
@@ -70,7 +92,10 @@ gazComp.App.prototype.start = function() {
  * @param { String } Choice to send to outputUri
  */
 gazComp.App.prototype.send = function( _choice ) {
+	// What gets sent?
+	// choice, g1_domain:id, g2_domain:id, 
 	console.log( _choice );
+	
 }
 
 /**

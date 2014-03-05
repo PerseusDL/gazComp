@@ -17,9 +17,12 @@
 			<div id="comp">
 				<div class="gaz" id="one">
 					<div class="name"></div>
+					<div class="vals"></div>
 				</div>
 				<div class="gaz" id="two">
 					<div class="name"></div>
+					div class="vals">
+					</div>
 				</div>
 			</div>
 			-->
@@ -30,17 +33,7 @@
 	<!-- Pass your API key along to retrieve the Maps API -->
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7ppibBFDEjgVih7qbhQCZMsxsdFvtfNQ&sensor=false"></script>
 	<script type="text/javascript">
-		
 		var gaz = new gazComp.App( 'gazComp', 'http://127.0.0.1/gazComp/examples/server_script.py' );
 		gaz.compare( new gazComp.GeonamesData( '2343234' ), new gazComp.PleiadesData( '83473298' ) );
-		
-		function initialize() {
-		  var mapOptions = {
-			center: new google.maps.LatLng( -34.397, 150.644 ),
-			zoom: 8
-		  };
-		  var map = new google.maps.Map( document.getElementById("map"), mapOptions );
-		}
-		google.maps.event.addDomListener( window, 'load', initialize );
 	</script>
 </html>
