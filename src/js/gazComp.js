@@ -142,8 +142,8 @@ gazComp.App.prototype.ready = function() {
  */
 gazComp.App.prototype.mapInit = function() {
 	var mapOptions = {
-		center: new google.maps.LatLng( -34.397, 150.644 ),
-		zoom: 8
+		center: new google.maps.LatLng( 42.4068441, -71.1186684 ),
+		zoom: 17
 	};
 	this.map = new google.maps.Map( document.getElementById("map"), mapOptions );
 }
@@ -180,6 +180,9 @@ gazComp.App.prototype.buildCompList = function() {}
  */
 gazComp.App.prototype.mapPlot = function() {
 	var self = this;
+	//------------------------------------------------------------
+	//  Get the coordinates and mark them
+	//------------------------------------------------------------
 	var c1 = new google.maps.LatLng( self.g1.data.clean.coords[0], self.g1.data.clean.coords[1] );
 	var c2 = new google.maps.LatLng( self.g2.data.clean.coords[0], self.g2.data.clean.coords[1] );
 	var mark1 = new google.maps.Marker({
@@ -187,5 +190,18 @@ gazComp.App.prototype.mapPlot = function() {
 		title: 'g1'
 	});
 	mark1.setMap( self.map );
-	
+	var mark2 = new google.maps.Marker({
+		position: c2,
+		title: 'g2'
+	});
+	mark2.setMap( self.map );
+	//------------------------------------------------------------
+	//  Set the boundary box
+	//------------------------------------------------------------
+	var cBounds = new Array ( c1, c2 );
+	var bBox = new google.maps.LatLngBounds();
+	for ( var i = 0, len = cBounds.length; i < len; i++ ) {
+		bBox.extend ( cBounds[i] );
+	}
+	self.map.fitBounds( bBox );
 }
