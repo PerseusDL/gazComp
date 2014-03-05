@@ -1,0 +1,59 @@
+html { 
+	height: 100%;
+}
+body { 
+	height: 100%; 
+	margin: 0; 
+	padding: 0;
+}
+#gazComp #map { 
+	height: 400px;
+}
+#gazComp #choices {
+	position: absolute;
+	left: 50%;
+	margin-left: -102px;
+	margin-top: -48px;
+	background-color: rgba( 0,0,0,0.5 );
+	z-index: 9999;
+	float: left;
+}
+#gazComp .choice {
+	padding: 20px;
+	font-family: "Dingbats", sans-serif;
+	text-decoration: none;
+	font-size: 40px;
+}
+#gazComp .choice#yes {
+	color: #33FF33;
+}
+#gazComp .choice#yes:hover {
+	color: #99FF99;
+}
+#gazComp .choice#no {
+	color: #FF3333;
+}
+#gazComp .choice#no:hover {
+	color: #FF6666;
+}
+#gazComp .choice#dunno {
+	color: #9999FF;
+}
+#gazComp .choice#dunno:hover {
+	color: #AAAAFF;
+}
+#gazComp #comp {
+	width: 100%;
+}
+#gazComp #comp .gaz {
+	box-sizing: border-box;
+	min-height: 1000px;
+	width: 50%;
+	float: left;
+}
+#gazComp #comp .gaz#one {
+	background-color: #777;
+}
+#gazComp #comp .gaz#two {
+	background-color: #444;
+}

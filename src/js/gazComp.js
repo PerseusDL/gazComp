@@ -1,74 +1,84 @@
-/*!
- * gazComp - gazComp
- * http://adamtavares.com
- * 
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- * 
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+var gazComp = gazComp || { REVISION: '1' }
+
+gazComp.Data = function( _id ) {
+	this.id = _id;
+	this.sample = {
+		
+	}
+	console.log( this.id );
+}
+gazComp.Data.prototype.get = function() {}
+gazComp.Data.prototype.data = function() {}
+
+gazComp.GeonamesData = function( _id ) {}
+gazComp.GeonamesData.prototype.get = function() {}
+
+gazComp.PleiadesData = function( _id ) {}
+gazComp.PleiadesData.prototype.get = function() {}
+
+/**
+ * Retrieve the mouse position in relation to the view
+ *
+ * @param { String } _rootId 		The id attribute of the root UI element
+ * @param { String } _outputURI		The uri to send choice output 
  */
-;(function($) {
-	
-	/**
-	 * Holds default options, adds user defined options, and initializes the plugin
-	 *
-	 * @param { obj } _elem The DOM element where the plugin will be drawn
-	 *
-	 * @param { obj } _options Key value pairs to hold the plugin's configuration
-	 *
-	 * @param { string } _id The id of the DOM element
-	 */
-	function gazComp( _elem, _options, _id ) {
-		var self = this;
-		self.elem = _elem;
-		self.id = _id;
-		self.init( _elem, _options );
+gazComp.App = function( _rootId, _outputUri ) {
+	this.uiRoot = '#'+_rootId;
+	this.outputUri = _outputUri;
+	this.totalComp = 0;
+}
+
+/**
+ * Retrieve the mouse position in relation to the view
+ *
+ * @param { Obj } _domId 		The id attribute of the root UI element
+ * @param { Obj } _outputUri	The uri to send choice output 
+ */
+gazComp.App.prototype.compare = function( _g1, _g2 ) {
+	//------------------------------------------------------------
+	//  Determine source
+	//------------------------------------------------------------
+	if ( this.totalComp != 0 ) {
+		this.reset();
 	}
-	
-	/**
-	 * Holds default options, adds user defined options, and initializes the plugin
-	 *
-	 * @param { obj } _elem The DOM element where the plugin will be drawn
-	 *
-	 * @param { obj } _options Key value pairs to hold the plugin's configuration
-	 */
-	gazComp.prototype.init = function( _elem, _options ) {
-		var self = this;
-		
-		//------------------------------------------------------------
-		//	Mark your territory
-		//------------------------------------------------------------
-		$( self.elem ).addClass('gazComp')
-		
-		//------------------------------------------------------------
-		//	User options 
-		//------------------------------------------------------------
-		self.options = $.extend({}, _options );
-	}
-	
-	//----------------
-	//	Extend JQuery 
-	//----------------
-	jQuery(document).ready( function($) {
-		jQuery.fn.gazComp = function( options ) {
-			var id = jQuery(this).selector;
-			return this.each( function() {
-				jQuery.data( this, id, new gazComp( this, options, id ) );
-			});
-		};
-	})
-})(jQuery);
+	//------------------------------------------------------------
+	//  Retrieve data from the data source
+	//------------------------------------------------------------
+	this.start();
+	this.totalComp = 1;
+}
+
+/**
+ * Clear the map and list
+ */
+gazComp.App.prototype.reset = function() {}
+
+/**
+ * Start the click listeners
+ */
+gazComp.App.prototype.start = function() {
+	var self = this;
+	$( '.choice', this.uiRoot ).on( 'touchstart click', function( _e ) {
+		_e.preventDefault();
+		self.send( $( this ).attr('id') );
+	});
+}
+
+/**
+ * HTTP Posts choice to this.outputUri
+ *
+ * @param { String } Choice to send to outputUri
+ */
+gazComp.App.prototype.send = function( _choice ) {
+	console.log( _choice );
+}
+
+/**
+ * Builds comparison lists from gazetteer data objects
+ */
+gazComp.App.prototype.buildCompList = function() {}
+
+/**
+ * Plot the gazetteer places on a map
+ */
+gazComp.App.prototype.mapPlot = function() {}

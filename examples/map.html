@@ -1,17 +1,46 @@
+<!DOCTYPE html>
 <html>
 	<head>
-		<!-- Load CSS -->
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<link href="../src/css/gazComp.css" rel="stylesheet" type="text/css" />
-		<!-- End Load CSS -->
-		<title>gazComp</title>
-	<head>
+		<style type="text/css"></style>
+	</head>
 	<body>
-		<div id="gazComp"></div>
+		<div id="gazComp">
+			<div id="map"></div>
+			<div id="choices">
+				<a href="" id="yes" class="choice">&#x2713;</a>
+				<a href="" id="no" class="choice">&#x2717;</a>
+				<a href="" id="dunno" class="choice">?</a>
+			</div>
+			<!--
+			<div id="comp">
+				<div class="gaz" id="one">
+					<div class="name"></div>
+				</div>
+				<div class="gaz" id="two">
+					<div class="name"></div>
+				</div>
+			</div>
+			-->
+		</div>
 	</body>
-	<!-- Load Javascript -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="../src/js/gazComp.js"></script>
+	<!-- Pass your API key along to retrieve the Maps API -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7ppibBFDEjgVih7qbhQCZMsxsdFvtfNQ&sensor=false"></script>
 	<script type="text/javascript">
-		$(document).ready( function() {});
+		
+		var gaz = new gazComp.App( 'gazComp', 'http://127.0.0.1/gazComp/examples/server_script.py' );
+		gaz.compare( new gazComp.GeonamesData( '2343234' ), new gazComp.PleiadesData( '83473298' ) );
+		
+		function initialize() {
+		  var mapOptions = {
+			center: new google.maps.LatLng( -34.397, 150.644 ),
+			zoom: 8
+		  };
+		  var map = new google.maps.Map( document.getElementById("map"), mapOptions );
+		}
+		google.maps.event.addDomListener( window, 'load', initialize );
 	</script>
-<html>
+</html>
