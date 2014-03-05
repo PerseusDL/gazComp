@@ -1,0 +1,641 @@
+{
+    "citations": [
+        {
+            "citesForInformation": "http://en.wikipedia.org/wiki/Paris"
+        }, 
+        {
+            "citesAsRelated": "http://dbpedia.org/resource/Paris"
+        }, 
+        {
+            "citesForInformation": "http://uk.wikipedia.org/wiki/%D0%9F%D0%B0%D1%80%D0%B8%D0%B6"
+        }, 
+        {
+            "citesAsDataSource": "http://sws.geonames.org/2988507/"
+        }
+    ], 
+    "names": [
+        {
+            "name": "Paris"
+        }, 
+        {
+            "lang": "ja", 
+            "name": "\u30d1\u30ea"
+        }, 
+        {
+            "lang": "ko", 
+            "name": "\ud30c\ub9ac"
+        }, 
+        {
+            "lang": "am", 
+            "name": "\u1353\u122a\u1235"
+        }, 
+        {
+            "lang": "arc", 
+            "name": "\u0726\u0710\u072a\u071d\u0723"
+        }, 
+        {
+            "lang": "th", 
+            "name": "\u0e1b\u0e32\u0e23\u0e35\u0e2a"
+        }, 
+        {
+            "lang": "bo", 
+            "name": "\u0f55\u0f0b\u0f62\u0f72\u0f0d"
+        }, 
+        {
+            "lang": "ta", 
+            "name": "\u0baa\u0bbe\u0bb0\u0bbf\u0bb8\u0bcd"
+        }, 
+        {
+            "lang": "km", 
+            "name": "\u1794\u17c9\u17b6\u179a\u17b8\u179f"
+        }, 
+        {
+            "lang": "so", 
+            "name": "Baariis"
+        }, 
+        {
+            "lang": "za", 
+            "name": "Bahliz"
+        }, 
+        {
+            "lang": "tl", 
+            "name": "Lungsod ng Paris"
+        }, 
+        {
+            "lang": "fr", 
+            "name": "Lut\u00e8ce"
+        }, 
+        {
+            "lang": "la", 
+            "name": "Lutetia"
+        }, 
+        {
+            "lang": "la", 
+            "name": "Lutetia Parisorum"
+        }, 
+        {
+            "lang": "gv", 
+            "name": "Paarys"
+        }, 
+        {
+            "lang": "haw", 
+            "name": "Palika"
+        }, 
+        {
+            "lang": "fr", 
+            "name": "Paname"
+        }, 
+        {
+            "lang": "fr", 
+            "name": "Pantruche"
+        }, 
+        {
+            "lang": "lb", 
+            "name": "Par\u00e4is"
+        }, 
+        {
+            "lang": "ga", 
+            "name": "P\u00e1ras"
+        }, 
+        {
+            "lang": "ln", 
+            "name": "Pari"
+        }, 
+        {
+            "lang": "wo", 
+            "name": "Pari"
+        }, 
+        {
+            "lang": "vi", 
+            "name": "Pa-ri"
+        }, 
+        {
+            "lang": "gn", 
+            "name": "Par\u0129"
+        }, 
+        {
+            "lang": "mi", 
+            "name": "Par\u012b"
+        }, 
+        {
+            "lang": "li", 
+            "name": "Paries"
+        }, 
+        {
+            "lang": "nap", 
+            "name": "Parigge"
+        }, 
+        {
+            "lang": "lij", 
+            "name": "Pariggi"
+        }, 
+        {
+            "lang": "scn", 
+            "name": "Pariggi"
+        }, 
+        {
+            "lang": "co", 
+            "name": "Parighji"
+        }, 
+        {
+            "lang": "it", 
+            "name": "Parigi"
+        }, 
+        {
+            "lang": "sc", 
+            "name": "Parigi"
+        }, 
+        {
+            "lang": "et", 
+            "name": "Pariis"
+        }, 
+        {
+            "lang": "ha", 
+            "name": "Pariis"
+        }, 
+        {
+            "lang": "fi", 
+            "name": "Pariisi"
+        }, 
+        {
+            "lang": "uz", 
+            "name": "Parij"
+        }, 
+        {
+            "lang": "nl", 
+            "name": "Parijs"
+        }, 
+        {
+            "lang": "jbo", 
+            "name": "paris"
+        }, 
+        {
+            "lang": "als", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "cy", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "da", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "de", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "en", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "eu", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "fr", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "gd", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "ia", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "id", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "io", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "ksh", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "kw", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "lad", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "lmo", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "mg", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "ms", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "na", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "nds", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "nn", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "no", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "pms", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "pt", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "ro", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "sco", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "sq", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "sv", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "sw", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "tl", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "tr", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "ty", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "vi", 
+            "name": "Paris"
+        }, 
+        {
+            "lang": "an", 
+            "name": "Par\u00eds"
+        }, 
+        {
+            "lang": "ast", 
+            "name": "Par\u00eds"
+        }, 
+        {
+            "lang": "ca", 
+            "name": "Par\u00eds"
+        }, 
+        {
+            "lang": "es", 
+            "name": "Par\u00eds"
+        }, 
+        {
+            "lang": "ext", 
+            "name": "Par\u00eds"
+        }, 
+        {
+            "lang": "gl", 
+            "name": "Par\u00eds"
+        }, 
+        {
+            "lang": "is", 
+            "name": "Par\u00eds"
+        }, 
+        {
+            "lang": "oc", 
+            "name": "Par\u00eds"
+        }, 
+        {
+            "lang": "tet", 
+            "name": "Par\u00eds"
+        }, 
+        {
+            "lang": "fur", 
+            "name": "Par\u00ees"
+        }, 
+        {
+            "lang": "ku", 
+            "name": "Par\u00ees"
+        }, 
+        {
+            "lang": "sq", 
+            "name": "Parisi"
+        }, 
+        {
+            "lang": "yo", 
+            "name": "Parisi"
+        }, 
+        {
+            "lang": "vec", 
+            "name": "Parixe"
+        }, 
+        {
+            "lang": "br", 
+            "name": "Pariz"
+        }, 
+        {
+            "lang": "bs", 
+            "name": "Pariz"
+        }, 
+        {
+            "lang": "hbs", 
+            "name": "Pariz"
+        }, 
+        {
+            "lang": "hr", 
+            "name": "Pariz"
+        }, 
+        {
+            "lang": "sl", 
+            "name": "Pariz"
+        }, 
+        {
+            "lang": "tk", 
+            "name": "Pari\u017e"
+        }, 
+        {
+            "lang": "sk", 
+            "name": "Par\u00ed\u017e"
+        }, 
+        {
+            "lang": "cs", 
+            "name": "Pa\u0159\u00ed\u017e"
+        }, 
+        {
+            "lang": "lv", 
+            "name": "Par\u012bze"
+        }, 
+        {
+            "lang": "eo", 
+            "name": "Parizo"
+        }, 
+        {
+            "lang": "hu", 
+            "name": "P\u00e1rizs"
+        }, 
+        {
+            "lang": "af", 
+            "name": "Parys"
+        }, 
+        {
+            "lang": "fy", 
+            "name": "Parys"
+        }, 
+        {
+            "lang": "vls", 
+            "name": "Parys"
+        }, 
+        {
+            "lang": "pl", 
+            "name": "Pary\u017c"
+        }, 
+        {
+            "lang": "szl", 
+            "name": "Pary\u017c"
+        }, 
+        {
+            "lang": "lt", 
+            "name": "Pary\u017eius"
+        }, 
+        {
+            "lang": "fr", 
+            "name": "Ville-Lumi\u00e8re"
+        }, 
+        {
+            "lang": "ar", 
+            "name": "\u0628\u0627\u0631\u064a\u0633"
+        }, 
+        {
+            "lang": "arz", 
+            "name": "\u0628\u0627\u0631\u064a\u0633"
+        }, 
+        {
+            "lang": "ckb", 
+            "name": "\u067e\u0627\u0631\u06cc\u0633"
+        }, 
+        {
+            "lang": "fa", 
+            "name": "\u067e\u0627\u0631\u06cc\u0633"
+        }, 
+        {
+            "lang": "mzn", 
+            "name": "\u067e\u0627\u0631\u06cc\u0633"
+        }, 
+        {
+            "lang": "ug", 
+            "name": "\u067e\u0627\u0631\u0649\u0698"
+        }, 
+        {
+            "lang": "ps", 
+            "name": "\u067e\u0627\u0631\u064a\u0633"
+        }, 
+        {
+            "lang": "pnb", 
+            "name": "\u067e\u06cc\u0631\u0633"
+        }, 
+        {
+            "lang": "ur", 
+            "name": "\u067e\u06cc\u0631\u0633"
+        }, 
+        {
+            "lang": "yi", 
+            "name": "\u05e4\u05d0\u05e8\u05d9\u05d6"
+        }, 
+        {
+            "lang": "he", 
+            "name": "\u05e4\u05e8\u05d9\u05d6"
+        }, 
+        {
+            "lang": "el", 
+            "name": "\u03a0\u03b1\u03c1\u03af\u03c3\u03b9"
+        }, 
+        {
+            "lang": "be", 
+            "name": "\u0413\u043e\u0440\u0430\u0434 \u041f\u0430\u0440\u044b\u0436"
+        }, 
+        {
+            "lang": "ba", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "bg", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "kk", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "krc", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "kv", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "ky", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "mhr", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "mrj", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "os", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "ru", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "sah", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "tg", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "tt", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "udm", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "uk", 
+            "name": "\u041f\u0430\u0440\u0438\u0436"
+        }, 
+        {
+            "lang": "myv", 
+            "name": "\u041f\u0430\u0440\u0438\u0436 \u043e\u0448"
+        }, 
+        {
+            "lang": "cu", 
+            "name": "\u041f\u0430\u0440\u0438\u0436\u044c"
+        }, 
+        {
+            "lang": "mk", 
+            "name": "\u041f\u0430\u0440\u0438\u0437"
+        }, 
+        {
+            "lang": "sr", 
+            "name": "\u041f\u0430\u0440\u0438\u0437"
+        }, 
+        {
+            "lang": "cv", 
+            "name": "\u041f\u0430\u0440\u0438\u0441"
+        }, 
+        {
+            "lang": "mn", 
+            "name": "\u041f\u0430\u0440\u0438\u0441"
+        }, 
+        {
+            "lang": "rue", 
+            "name": "\u041f\u0430\u0440\u0456\u0436"
+        }, 
+        {
+            "lang": "hy", 
+            "name": "\u0553\u0561\u0580\u056b\u0566"
+        }, 
+        {
+            "lang": "ka", 
+            "name": "\u10de\u10d0\u10e0\u10d8\u10d6\u10d8"
+        }, 
+        {
+            "lang": "xmf", 
+            "name": "\u10de\u10d0\u10e0\u10d8\u10d6\u10d8"
+        }, 
+        {
+            "lang": "mr", 
+            "name": "\u092a\u0945\u0930\u093f\u0938"
+        }, 
+        {
+            "lang": "ne", 
+            "name": "\u092a\u0947\u0930\u093f\u0938"
+        }, 
+        {
+            "lang": "hi", 
+            "name": "\u092a\u0948\u0930\u093f\u0938"
+        }, 
+        {
+            "lang": "gu", 
+            "name": "\u0aaa\u0ac5\u0ab0\u0abf\u0ab8"
+        }, 
+        {
+            "lang": "te", 
+            "name": "\u0c2a\u0c3e\u0c30\u0c3f\u0c38\u0c4d"
+        }, 
+        {
+            "lang": "pa", 
+            "name": "\u0a2a\u0a48\u0a30\u0a3f\u0a38"
+        }, 
+        {
+            "lang": "kn", 
+            "name": "\u0caa\u0ccd\u0caf\u0cbe\u0cb0\u0cbf\u0cb8\u0ccd"
+        }, 
+        {
+            "lang": "ml", 
+            "name": "\u0d2a\u0d3e\u0d30\u0d3f\u0d38\u0d4d"
+        }, 
+        {
+            "lang": "bn", 
+            "name": "\u09aa\u09cd\u09af\u09be\u09b0\u09bf\u09b8"
+        }, 
+        {
+            "lang": "my", 
+            "name": "\u1015\u102b\u101b\u102e\u1019\u103c\u102d\u102f\u1037"
+        }, 
+        {
+            "lang": "gan", 
+            "name": "\u5df4\u9ece"
+        }, 
+        {
+            "lang": "zh", 
+            "name": "\u5df4\u9ece"
+        }
+    ], 
+    "rel": {
+        "alternate": "http://sws.geonames.org/2988507/about.rdf", 
+        "author": "GeoNames", 
+        "license": "http://creativecommons.org/licenses/by/3.0/"
+    }, 
+    "reprPoint": [
+        48.85341, 
+        2.3488
+    ], 
+    "title": "Paris", 
+    "type": "Feature", 
+    "uri": "http://sws.geonames.org/2988507/"
+}
