@@ -1,0 +1,185 @@
+{
+    "@context": {
+        "Feature": "http://geovocab.org/spatial#Feature", 
+        "FeatureCollection": "_:n1", 
+        "GeometryCollection": "http://geovocab.org/geometry#GeometryCollection", 
+        "LineString": "http://geovocab.org/geometry#LineString", 
+        "MultiLineString": "http://geovocab.org/geometry#MultiLineString", 
+        "MultiPoint": "http://geovocab.org/geometry#MultiPoint", 
+        "MultiPolygon": "http://geovocab.org/geometry#MultiPolygon", 
+        "Point": "http://geovocab.org/geometry#Point", 
+        "Polygon": "http://geovocab.org/geometry#Polygon", 
+        "bbox": "http://geovocab.org/geometry#bbox", 
+        "connectsWith": "_:n8", 
+        "coordinates": "_:n5", 
+        "description": "http://purl.org/dc/terms/description", 
+        "features": "_:n3", 
+        "geometry": "http://geovocab.org/geometry#geometry", 
+        "id": "@id", 
+        "link": "_:n6", 
+        "location_precision": "_:n7", 
+        "names": "_:n9", 
+        "properties": "_:n4", 
+        "recent_changes": "_:n10", 
+        "reprPoint": "_:n11", 
+        "snippet": "http://purl.org/dc/terms/abstract", 
+        "title": "http://purl.org/dc/terms/title", 
+        "type": "@type"
+    }, 
+    "bbox": [
+        2.342384, 
+        48.8451662, 
+        2.3525032, 
+        48.855847
+    ], 
+    "connectsWith": [
+        "109341", 
+        "109242", 
+        "113295"
+    ], 
+    "description": "Lutetia (modern Paris) was the capital of the Parisii, a tribe of ancient Gaul.", 
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                    2.342384, 
+                    48.855847
+                ], 
+                "type": "Point"
+            }, 
+            "id": "darmc-location-13544", 
+            "properties": {
+                "description": "1M scale point location", 
+                "link": "plone/places/109126/darmc-location-13544", 
+                "location_precision": "precise", 
+                "snippet": "Unknown; 330 BC - AD 640", 
+                "title": "DARMC location 13544"
+            }, 
+            "type": "Feature"
+        }, 
+        {
+            "geometry": {
+                "coordinates": [
+                    2.349952, 
+                    48.852964
+                ], 
+                "type": "Point"
+            }, 
+            "id": "dare-location", 
+            "properties": {
+                "description": "Representative point location, site precision", 
+                "link": "plone/places/109126/dare-location", 
+                "location_precision": "precise", 
+                "snippet": "Settlement; 330 BC - AD 640", 
+                "title": "DARE Location"
+            }, 
+            "type": "Feature"
+        }, 
+        {
+            "geometry": {
+                "coordinates": [
+                    2.3525032, 
+                    48.8451662
+                ], 
+                "type": "Point"
+            }, 
+            "id": "location-of-arenes-de-lutece", 
+            "properties": {
+                "description": "Location based on OpenStreetMap", 
+                "link": "plone/places/109126/location-of-arenes-de-lutece", 
+                "location_precision": "precise", 
+                "snippet": "Amphitheatre, ; 30 BC - AD 300", 
+                "title": "location of Ar\u00e8nes de Lut\u00e8ce"
+            }, 
+            "type": "Feature"
+        }, 
+        {
+            "geometry": {
+                "coordinates": [
+                    2.3432743, 
+                    48.8506016
+                ], 
+                "type": "Point"
+            }, 
+            "id": "location-of-thermes-de-cluny", 
+            "properties": {
+                "description": "A Gallo-Roman bath complex of the third century AD. Location based on OpenStreetMap.", 
+                "link": "plone/places/109126/location-of-thermes-de-cluny", 
+                "location_precision": "precise", 
+                "snippet": "Bath, ; 30 BC - AD 300", 
+                "title": "location of Thermes de Cluny"
+            }, 
+            "type": "Feature"
+        }
+    ], 
+    "id": "109126", 
+    "names": [
+        "Lutetia", 
+        "Lutecia", 
+        "Luticia", 
+        "Paris"
+    ], 
+    "precision": "precise", 
+    "recent_changes": [
+        {
+            "comment": "added connection", 
+            "fullname": "Jeffrey Becker", 
+            "modified": "2013-09-06T03:30:37Z", 
+            "username": "jbecker"
+        }, 
+        {
+            "comment": "added location", 
+            "fullname": "Jeffrey Becker", 
+            "modified": "2013-06-19T22:09:25Z", 
+            "username": "jbecker"
+        }, 
+        {
+            "comment": "added location", 
+            "fullname": "Jeffrey Becker", 
+            "modified": "2013-06-19T17:37:34Z", 
+            "username": "jbecker"
+        }, 
+        {
+            "comment": "Location updates and tags from Johan Ahlfeldt's (jahlfeldt) Digital Atlas of the Roman Empire in October 2012", 
+            "fullname": "Sean Gillies", 
+            "modified": "2012-10-21T00:11:18Z", 
+            "username": "sgillies"
+        }, 
+        {
+            "comment": "RFO and PECS references from Johan Ahlfeldt (jahlfeldt) and reviewd by Tom Elliott (thomase) in May 2012", 
+            "fullname": "Sean Gillies", 
+            "modified": "2012-05-25T22:12:09Z", 
+            "username": "sgillies"
+        }, 
+        {
+            "comment": "Global migration and reindexing of citations and provenance, February 2012", 
+            "fullname": "admin", 
+            "modified": "2012-02-15T02:11:23Z", 
+            "username": "admin"
+        }, 
+        {
+            "comment": "Global migration and reindexing of citations and provenance, February 2012", 
+            "fullname": "admin", 
+            "modified": "2012-02-15T02:11:23Z", 
+            "username": "admin"
+        }, 
+        {
+            "comment": "Global migration and reindexing of citations and provenance, February 2012", 
+            "fullname": "admin", 
+            "modified": "2012-02-15T02:11:23Z", 
+            "username": "admin"
+        }, 
+        {
+            "comment": "Global migration and reindexing of citations and provenance, February 2012", 
+            "fullname": "admin", 
+            "modified": "2012-02-15T02:11:23Z", 
+            "username": "admin"
+        }
+    ], 
+    "reprPoint": [
+        2.347028375, 
+        48.8511447
+    ], 
+    "title": "Lutetia", 
+    "type": "FeatureCollection"
+}
