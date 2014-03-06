@@ -36,6 +36,7 @@ body {
 	color: #FF6666;
 }
 #gazComp .choice#dunno {
+	font-style: italic;
 	color: #9999FF;
 }
 #gazComp .choice#dunno:hover {

@@ -17,28 +17,34 @@ gazComp.Data = function( _id ) {
 	this.displayOrder = [ 'coords', 'lang', 'names', '...' ];
 	this.src = null;
 	this.clean = {};
+	//------------------------------------------------------------
+	//  Events
+	//------------------------------------------------------------
 	this.ready = 'GAZCOMP.DATA-READY';
 	this.error = 'GAZCOMP.DATA-ERROR';
 	return this;
 }
 
-
+/**
+ * Geonames data retrieval and conversion
+ *
+ * @param { String } _id 		Geonames place id
+ */
 gazComp.GeonamesData = function( _id ) {
 	this.data = new gazComp.Data( _id );
+	this.domain = "Geonames";
+	this.id = _id;
 }
 gazComp.GeonamesData.prototype.get = function() {
 	var self = this;
 	$.ajax({
-		type: 'get',
+		type: 'GET',
 		url: 'data/lutetia-geonames-pretty.json',
 		timeout: 5000,
 		dataType: 'json',
 		success: function( _data ) { self.convert( _data ) },
-		error: function( _data ) {
-			//------------------------------------------------------------
-			//  Trigger error
-			//------------------------------------------------------------
-			$( document ).trigger( self.data.error, _data );
+		error: function( _data, _error, _opt ) {
+			$( document ).trigger( self.data.error, [ _error, _opt ] );
 		}
 	});
 }
@@ -55,23 +61,26 @@ gazComp.GeonamesData.prototype.convert = function( _data ) {
 	$( document ).trigger( self.data.ready );
 }
 
-
+/**
+ * Pleiades data retrieval and conversion
+ *
+ * @param { String } _id 		Pleiades place id
+ */
 gazComp.PleiadesData = function( _id ) {
 	this.data = new gazComp.Data( _id );
+	this.domain = "Pleiades";
+	this.id = _id;
 }
 gazComp.PleiadesData.prototype.get = function() {
 	var self = this;
 	$.ajax({
-		type: 'get',
+		type: 'GET',
 		url: 'data/lutetia-pleiades-pretty.json',
 		timeout: 5000,
 		dataType: 'json',
 		success: function( _data ) { self.convert( _data ) },
-		error: function( _data ) {
-			//------------------------------------------------------------
-			//  Trigger error
-			//------------------------------------------------------------
-			$( document ).trigger( self.data.error, _data );
+		error: function( _data, _error, _opt ) {
+			$( document ).trigger( self.data.error, [ _error, _opt ] );
 		}
 	});
 }
@@ -96,6 +105,8 @@ gazComp.App = function( _rootId, _outputUri ) {
 	this.uiRoot = '#'+_rootId;
 	this.outputUri = _outputUri;
 	this.totalComp = 0;
+	this.data_sent = 'GAZCOMP.APP.DATA_SENT';
+	this.send_error = 'GAZCOMP.APP.SEND_ERROR';
 }
 /**
  * Retrieve the mouse position in relation to the view
@@ -121,7 +132,7 @@ gazComp.App.prototype.compare = function( _g1, _g2 ) {
 	//------------------------------------------------------------
 	//  Retrieve data from the data source
 	//------------------------------------------------------------
-	$(document).bind( 'GAZCOMP.DATA-READY', function() {
+	$(document).on( 'GAZCOMP.DATA-READY', function() {
 		self.ready();
 	});
 	self.g1.get();
@@ -152,7 +163,7 @@ gazComp.App.prototype.mapInit = function() {
  */
 gazComp.App.prototype.reset = function() {}
 /**
- * Start the click listeners
+ * Start the click and error listeners
  */
 gazComp.App.prototype.start = function() {
 	var self = this;
@@ -160,6 +171,28 @@ gazComp.App.prototype.start = function() {
 		_e.preventDefault();
 		self.send( $( this ).attr('id') );
 	});
+	//------------------------------------------------------------
+	//  Data retrieval errors
+	//------------------------------------------------------------
+	$( document ).on( 'GAZCOMP.DATA-ERROR', function( _e, _error, _opt ) {
+		self.errorDisplay( _e, _error, _opt );
+	});
+	//------------------------------------------------------------
+	//  Data send errors
+	//------------------------------------------------------------
+	$( document ).on( self.send_error, function( _e, _error, _opt ) {
+		self.errorDisplay( _e, _error, _opt );
+	});
+}
+/**
+ * Error display handler
+ *
+ * @param { Object } _e Event object
+ * @param { String } _error Error string
+ * @param { Object } _opt Error object
+ */
+gazComp.App.prototype.errorDisplay = function( _e, _error, _opt ) {
+	console.log( 'Error: ' + _opt['message'] );
 }
 /**
  * HTTP Posts choice to this.outputUri
@@ -167,9 +200,26 @@ gazComp.App.prototype.start = function() {
  * @param { String } Choice to send to outputUri
  */
 gazComp.App.prototype.send = function( _choice ) {
-	// What gets sent?
-	// choice, g1_domain:id, g2_domain:id, 
-	console.log( _choice );
+	var self = this;
+	var data = {
+		'g1': self.g1.domain + ":" + self.g1.id,
+		'g2': self.g2.domain + ":" + self.g2.id,
+		'choice': _choice
+	}
+	$.ajax({
+		type: 'POST',
+		url: self.outputUri,
+		data: data,
+		success: function( _data ) { 
+			$( document ).trigger( self.data_sent )
+		},
+		error: function( _data, _error, _opt ) {
+			//------------------------------------------------------------
+			//  Trigger error
+			//------------------------------------------------------------
+			$( document ).trigger( self.send_error, [ _error, _opt ] );
+		}
+	});
 }
 /**
  * Builds comparison lists from gazetteer data objects
