@@ -85,6 +85,10 @@ body {
 #gazComp #comp .gaz.g2 {
 	background-color: #DDFFFF;
 }
+#gazComp #comp .gaz a {
+	display: block;
+	margin-bottom: 20px;
+}
 #gazComp #comp .gaz.g1 .key,
 #gazComp #comp .gaz.g1 .val {
 	text-align: right;

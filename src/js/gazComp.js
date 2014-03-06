@@ -11,26 +11,26 @@ gazComp.Data = function( _collection, _id ) {
 	//------------------------------------------------------------
 	this.sample = {
 		'coords': [ 1, 2 ],
-		'lang': 'en',
-		'names': [],
-		'addl': [],
-		'description' : ''
+		'names': [ '', '...' ],
+		'description' : '',
+		'citations': [ '', '...' ]
 	};
 	//------------------------------------------------------------
 	//  What order the items are listed
 	//------------------------------------------------------------
-	this.displayOrder = [ 'coords', 'names', 'description' ];
+	this.displayOrder = [ 'coords', 'names', 'description', 'citations' ];
 	//------------------------------------------------------------
 	//  Different types of templates to display items
 	//------------------------------------------------------------
-	this.templateTypes = [ 'num', 'list', 'short', 'long' ];
+	this.templateTypes = [ 'num', 'list', 'short', 'long', 'linkList' ];
 	//------------------------------------------------------------
 	//  Map an item type to a template type.
 	//------------------------------------------------------------
 	this.templateMap = {
 		'coords': 'list',
 		'names': 'list',
-		'description': 'long'
+		'description': 'long',
+		'citations': 'linkList'
 	};
 	this.src = null;
 	this.clean = {};
@@ -69,7 +69,26 @@ gazComp.GeonamesData.prototype.convert = function( _data ) {
 	//------------------------------------------------------------
 	//  Create the clean data... which should resemble the sample
 	//------------------------------------------------------------
+	//------------------------------------------------------------
+	//  Coords
+	//------------------------------------------------------------
 	self.data.clean.coords = [ _data.reprPoint[0], _data.reprPoint[1] ];
+	//------------------------------------------------------------
+	//  Names
+	//------------------------------------------------------------
+	self.data.clean.names = [];
+	for ( var i=0, ii=_data.names.length; i<ii; i++ ) {
+		self.data.clean.names.push( _data.names[i].name );
+	}
+	//------------------------------------------------------------
+	//  Citations
+	//------------------------------------------------------------
+	self.data.clean.citations = [];
+	for ( var i=0, ii=_data.citations.length; i<ii; i++ ) {
+		for ( var key in _data.citations[i] ) {
+			self.data.clean.citations.push( _data.citations[i][key] );
+		}
+	}
 	//------------------------------------------------------------
 	//  Trigger that the data is ready.
 	//------------------------------------------------------------
@@ -266,6 +285,9 @@ gazComp.App.prototype.buildCompList = function() {
 		var markup = self[ 'build'+type.capitalize() ]( key );
 		$( '#comp', this.uiRoot ).append( markup );
 	}
+	//------------------------------------------------------------
+	//  Make resize items so they're the same height
+	//------------------------------------------------------------
 	self.sizeCompList();
 }
 /**
@@ -303,7 +325,31 @@ gazComp.App.prototype.buildWrap = function( _mark1, _mark2, _class ) {
 	return markup;
 }
 /**
- * Wrap output markup
+ * Build a display for a list of links
+ */
+gazComp.App.prototype.buildLinkList = function( _key ) {
+	var g1 = this.g1.data.clean[ _key ];
+	var g2 = this.g2.data.clean[ _key ];
+	g1 = ( g1 == undefined ) ? [] : g1;
+	g2 = ( g2 == undefined ) ? [] : g2;
+	for ( var i=0, ii=g1.length; i<ii; i++ ) {
+		g1[i] = '<a href="'+ g1[i] +'">'+ g1[i] +'</a>';
+	}
+	var mark1 = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val">'+ g1.join("\n") +'</div>\
+	';
+	for ( var i=0, ii=g2.length; i<ii; i++ ) {
+		g2[i] = '<a href="'+ g2[i] +'">'+ g2[i] +'</a>';
+	}
+	var mark2 = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val">'+ g2.join("\n") +'</div>\
+	';
+	return this.buildWrap( mark1, mark2, 'linkList' );
+}
+/**
+ * Build a list display item
  */
 gazComp.App.prototype.buildList = function( _key ) {
 	var g1 = this.g1.data.clean[ _key ];
@@ -330,11 +376,11 @@ gazComp.App.prototype.buildShort = function( _key ) {
 	g2 = ( g2 == undefined ) ? '' : g2;
 	var mark1 = '\
 		<div class="key">'+ _key +'</div>\
-		<div class="val short">'+ g1 +'</div>\
+		<div class="val">'+ g1 +'</div>\
 	';
 	var mark2 = '\
 		<div class="key">'+ _key +'</div>\
-		<div class="val short">'+ g2 +'</div>\
+		<div class="val">'+ g2 +'</div>\
 	';
 	return this.buildWrap( mark1, mark2, 'short' );
 }
@@ -348,11 +394,11 @@ gazComp.App.prototype.buildLong = function( _key ) {
 	g2 = ( g2 == undefined ) ? '' : g2;
 	var mark1 = '\
 		<div class="key">'+ _key +'</div>\
-		<div class="val long">'+ g1 +'</div>\
+		<div class="val">'+ g1 +'</div>\
 	';
 	var mark2 = '\
 		<div class="key">'+ _key +'</div>\
-		<div class="val long">'+ g2 +'</div>\
+		<div class="val">'+ g2 +'</div>\
 	';
 	return this.buildWrap( mark1, mark2, 'full' );
 }
