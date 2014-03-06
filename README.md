@@ -10,8 +10,8 @@ See the following classes in src/js/gazComp.js
 * gazComp.PleiadesData
 
 # Requirements
-jQuery
-Google Maps API
+* jQuery
+* Google Maps API
 
 # Installation
 	<link href="gazComp/src/css/gazComp.css" rel="stylesheet" type="text/css" />

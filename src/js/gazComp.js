@@ -32,7 +32,7 @@ gazComp.Data = function( _id ) {
  */
 gazComp.GeonamesData = function( _id ) {
 	this.data = new gazComp.Data( _id );
-	this.domain = "Geonames";
+	this.collection = "Geonames";
 	this.id = _id;
 }
 gazComp.GeonamesData.prototype.get = function() {
@@ -68,7 +68,7 @@ gazComp.GeonamesData.prototype.convert = function( _data ) {
  */
 gazComp.PleiadesData = function( _id ) {
 	this.data = new gazComp.Data( _id );
-	this.domain = "Pleiades";
+	this.collection = "Pleiades";
 	this.id = _id;
 }
 gazComp.PleiadesData.prototype.get = function() {
@@ -87,13 +87,17 @@ gazComp.PleiadesData.prototype.get = function() {
 gazComp.PleiadesData.prototype.convert = function( _data ) {
 	var self = this;
 	self.data.src = _data;
+	//------------------------------------------------------------
+	//  Convert the data into a standard gazComp.Data object
+	//------------------------------------------------------------
 	self.data.clean.coords = [ _data.reprPoint[1], _data.reprPoint[0] ];
+	self.data.clean.names = _data.names;
+	self.data.clean.description = _data.description;
 	//------------------------------------------------------------
 	//  Trigger that the data is ready.
 	//------------------------------------------------------------
 	$( document ).trigger( self.data.ready );
 }
-
 
 /**
  * Retrieve the mouse position in relation to the view
@@ -202,8 +206,8 @@ gazComp.App.prototype.errorDisplay = function( _e, _error, _opt ) {
 gazComp.App.prototype.send = function( _choice ) {
 	var self = this;
 	var data = {
-		'g1': self.g1.domain + ":" + self.g1.id,
-		'g2': self.g2.domain + ":" + self.g2.id,
+		'g1': self.g1.collection + ":" + self.g1.id,
+		'g2': self.g2.collection + ":" + self.g2.id,
 		'choice': _choice
 	}
 	$.ajax({
@@ -225,6 +229,30 @@ gazComp.App.prototype.send = function( _choice ) {
  * Builds comparison lists from gazetteer data objects
  */
 gazComp.App.prototype.buildCompList = function() {}
+gazComp.App.prototype.buildInfoWindow = function( _g, _class ) {
+	//------------------------------------------------------------
+	//  Get the gazetteer place names.
+	//------------------------------------------------------------
+	var names = ''
+	if ( _g.data.clean.names != undefined ) {
+		names = _g.data.clean.names.join(', ');
+	}
+	//------------------------------------------------------------
+	//  Build the info window markup.
+	//------------------------------------------------------------
+	var markup = '\
+		<div class="info_window '+ _class +'">\
+			<div class="data_src">\
+				<span class="collection">'+ _g.collection +'</span>:\
+				<span class="id">'+ _g.id +'</span>\
+			</div>\
+			<div class="names">\
+				'+ names +'\
+			</div>\
+		</div>\
+	';
+	return markup
+}
 /**
  * Plot the gazetteer places on a map
  */
@@ -235,18 +263,32 @@ gazComp.App.prototype.mapPlot = function() {
 	//------------------------------------------------------------
 	var c1 = new google.maps.LatLng( self.g1.data.clean.coords[0], self.g1.data.clean.coords[1] );
 	var c2 = new google.maps.LatLng( self.g2.data.clean.coords[0], self.g2.data.clean.coords[1] );
+	//------------------------------------------------------------
+	//  Marker one
+	//------------------------------------------------------------
 	var mark1 = new google.maps.Marker({
 		position: c1,
 		title: 'g1'
 	});
 	mark1.setMap( self.map );
+	var info1 = new google.maps.InfoWindow({
+		content: self.buildInfoWindow( self.g1, 'g1' )
+	});
+	info1.open( self.map, mark1 );
+	//------------------------------------------------------------
+	//  Marker two
+	//------------------------------------------------------------
 	var mark2 = new google.maps.Marker({
 		position: c2,
 		title: 'g2'
 	});
 	mark2.setMap( self.map );
+	var info2 = new google.maps.InfoWindow({
+		content: self.buildInfoWindow( self.g2, 'g2' )
+	});
+	info2.open( self.map, mark2 );
 	//------------------------------------------------------------
-	//  Set the boundary box
+	//  Set the map's viewport so marker bounding box is visible
 	//------------------------------------------------------------
 	var cBounds = new Array ( c1, c2 );
 	var bBox = new google.maps.LatLngBounds();
