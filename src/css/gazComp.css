@@ -6,6 +6,9 @@ body {
 	margin: 0; 
 	padding: 0;
 }
+#gazComp .clear {
+	clear:both;
+}
 #gazComp #map { 
 	height: 400px;
 }
@@ -16,6 +19,7 @@ body {
 	margin-top: -48px;
 	background-color: rgba( 0,0,0,0.5 );
 	z-index: 9999;
+	overflow: hidden;
 }
 #gazComp .choice {
 	padding: 20px;
@@ -23,46 +27,69 @@ body {
 	text-decoration: none;
 	font-size: 40px;
 }
+#gazComp .choice:hover {
+	background-color: rgba( 0,0,0,0.5 );
+}
 #gazComp .choice#yes {
 	color: #33FF33;
-}
-#gazComp .choice#yes:hover {
-	color: #99FF99;
 }
 #gazComp .choice#no {
 	color: #FF3333;
 }
-#gazComp .choice#no:hover {
-	color: #FF6666;
-}
 #gazComp .choice#dunno {
 	font-style: italic;
-	color: #9999FF;
+	color: #CCCCFF;
 }
-#gazComp .choice#dunno:hover {
-	color: #AAAAFF;
-}
+#gazComp #header,
 #gazComp #comp {
+	font-family: 'Roboto', Arial, sans-serif;
 	width: 100%;
 }
+#gazComp #header .gaz,
 #gazComp #comp .gaz {
+	font-weight: 300;
+	font-size: 13px;
+	padding: 10px 10px 50px 10px;
 	box-sizing: border-box;
-	min-height: 1000px;
 	width: 50%;
 	float: left;
 }
-#gazComp #comp .gaz#one {
-	background-color: #777;
+#gazComp #header .gaz.g2 {
+	text-align: right;
 }
-#gazComp #comp .gaz#two {
-	background-color: #444;
+#gazComp #header .item .gaz {
+	padding: 10px 40px;
+}
+#gazComp #comp .item {
+	margin-bottom: 2px;
+}
+#gazComp #comp .gaz .key {
+	font-size: 10px;
+	font-style: italic;
+	margin-bottom: 10px;
 }
 #gazComp .info_window {
 	padding: 10px;
 }
+#gazComp #header .gaz.g1,
 #gazComp .info_window.g1 {
+	background-color: #FFFFAA;
+}
+#gazComp #comp .gaz.g1 {
 	background-color: #FFFFDD;
 }
+#gazComp #header .gaz.g2,
 #gazComp .info_window.g2 {
+	background-color: #AAFFFF;
+}
+#gazComp #comp .gaz.g2 {
 	background-color: #DDFFFF;
+}
+#gazComp #comp .gaz.g1 .key,
+#gazComp #comp .gaz.g1 .val {
+	text-align: right;
+}
+#gazComp #header .id,
+#gazComp .info_window .id {
+	font-style: italic;
 }

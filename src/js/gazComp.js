@@ -1,6 +1,14 @@
 var gazComp = gazComp || { REVISION: '1' }
-gazComp.Data = function( _id ) {
+gazComp.Data = function( _collection, _id ) {
+	this.collection = _collection;
 	this.id = _id;
+	this.handle = '\
+		<span class="collection">'+ this.collection +'</span>:\
+		<span class="id">'+ this.id +'</span>\
+	';
+	//------------------------------------------------------------
+	//  Sample gazComp data object
+	//------------------------------------------------------------
 	this.sample = {
 		'coords': [ 1, 2 ],
 		'lang': 'en',
@@ -8,13 +16,22 @@ gazComp.Data = function( _id ) {
 		'addl': [],
 		'description' : ''
 	};
+	//------------------------------------------------------------
+	//  What order the items are listed
+	//------------------------------------------------------------
+	this.displayOrder = [ 'coords', 'names', 'description' ];
+	//------------------------------------------------------------
+	//  Different types of templates to display items
+	//------------------------------------------------------------
+	this.templateTypes = [ 'num', 'list', 'short', 'long' ];
+	//------------------------------------------------------------
+	//  Map an item type to a template type.
+	//------------------------------------------------------------
 	this.templateMap = {
-		'num': [ 'coords' ],
-		'list': [ 'names', 'addl' ],
-		'short': [ 'lang' ],
-		'full': [ 'description' ]
-	}
-	this.displayOrder = [ 'coords', 'lang', 'names', '...' ];
+		'coords': 'list',
+		'names': 'list',
+		'description': 'long'
+	};
 	this.src = null;
 	this.clean = {};
 	//------------------------------------------------------------
@@ -31,9 +48,7 @@ gazComp.Data = function( _id ) {
  * @param { String } _id 		Geonames place id
  */
 gazComp.GeonamesData = function( _id ) {
-	this.data = new gazComp.Data( _id );
-	this.collection = "Geonames";
-	this.id = _id;
+	this.data = new gazComp.Data( "Geonames", _id);
 }
 gazComp.GeonamesData.prototype.get = function() {
 	var self = this;
@@ -67,9 +82,7 @@ gazComp.GeonamesData.prototype.convert = function( _data ) {
  * @param { String } _id 		Pleiades place id
  */
 gazComp.PleiadesData = function( _id ) {
-	this.data = new gazComp.Data( _id );
-	this.collection = "Pleiades";
-	this.id = _id;
+	this.data = new gazComp.Data( "Pleiades", _id);
 }
 gazComp.PleiadesData.prototype.get = function() {
 	var self = this;
@@ -150,6 +163,7 @@ gazComp.App.prototype.ready = function() {
 	self.loaded += 1;
 	if ( self.loaded > 1 ) {
 		self.mapPlot();
+		self.buildCompList();
 	}
 }
 /**
@@ -187,6 +201,13 @@ gazComp.App.prototype.start = function() {
 	$( document ).on( self.send_error, function( _e, _error, _opt ) {
 		self.errorDisplay( _e, _error, _opt );
 	});
+	//------------------------------------------------------------
+	//  Window resize triggered redisplays
+	//------------------------------------------------------------
+	$( window ).resize( function(){
+		self.sizeCompList();
+		self.mapFit()
+	});
 }
 /**
  * Error display handler
@@ -218,9 +239,6 @@ gazComp.App.prototype.send = function( _choice ) {
 			$( document ).trigger( self.data_sent )
 		},
 		error: function( _data, _error, _opt ) {
-			//------------------------------------------------------------
-			//  Trigger error
-			//------------------------------------------------------------
 			$( document ).trigger( self.send_error, [ _error, _opt ] );
 		}
 	});
@@ -228,26 +246,130 @@ gazComp.App.prototype.send = function( _choice ) {
 /**
  * Builds comparison lists from gazetteer data objects
  */
-gazComp.App.prototype.buildCompList = function() {}
-gazComp.App.prototype.buildInfoWindow = function( _g, _class ) {
+gazComp.App.prototype.buildCompList = function() {
+	var self = this;
+	var display = self.g1.data.displayOrder;
+	var templateMap = self.g1.data.templateMap;
 	//------------------------------------------------------------
-	//  Get the gazetteer place names.
+	//  Build the headers
 	//------------------------------------------------------------
-	var names = ''
-	if ( _g.data.clean.names != undefined ) {
-		names = _g.data.clean.names.join(', ');
+	$( '#header', this.uiRoot ).append( self.buildWrap( self.g1.data.handle, self.g2.data.handle ) );
+	//------------------------------------------------------------
+	//  Make sure keys defined in display order are first shown
+	//------------------------------------------------------------
+	for ( var i=0, ii=display.length; i<ii; i++ ) {
+		var key = display[i];
+		var type = templateMap[ key ];
+		//------------------------------------------------------------
+		//  Call the build type method
+		//------------------------------------------------------------
+		var markup = self[ 'build'+type.capitalize() ]( key );
+		$( '#comp', this.uiRoot ).append( markup );
 	}
+	self.sizeCompList();
+}
+/**
+ * Resize the comparison list
+ */
+gazComp.App.prototype.sizeCompList = function() {
+	$( '#comp .item', this.uiRoot ).each( function() {
+		var h1 = $( '.g1', this ).height();
+		var h2 = $( '.g2', this ).height();
+		var h = ( h1 > h2 ) ? h1 : h2;
+		$( '.g1', this ).height( h );
+		$( '.g2', this ).height( h );
+	});
+}
+/**
+ * Wrap output markup
+ *
+ * @param { String } _mark1 Gazetteer 1 markup
+ * @param { String } _mark2 Gazetteer 2 markup
+ * @param { String } _class Item class
+ */
+gazComp.App.prototype.buildWrap = function( _mark1, _mark2, _class ) {
+	_class = ( _class == undefined ) ? '' : _class;
+	var markup = '\
+		<div class="item '+ _class +'">\
+			<div class="gaz g1">\
+				'+ _mark1 +'\
+			</div>\
+			<div class="gaz g2">\
+				'+ _mark2 +'\
+			</div>\
+			<div class="clear"></div>\
+		</div>\
+	';
+	return markup;
+}
+/**
+ * Wrap output markup
+ */
+gazComp.App.prototype.buildList = function( _key ) {
+	var g1 = this.g1.data.clean[ _key ];
+	var g2 = this.g2.data.clean[ _key ];
+	g1 = ( g1 == undefined ) ? [] : g1;
+	g2 = ( g2 == undefined ) ? [] : g2;
+	var mark1 = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val">'+ g1.join(', ') +'</div>\
+	';
+	var mark2 = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val">'+ g2.join(', ') +'</div>\
+	';
+	return this.buildWrap( mark1, mark2, 'list' );
+}
+/**
+ * Build a short text item.
+ */
+gazComp.App.prototype.buildShort = function( _key ) {
+	var g1 = this.g1.data.clean[ _key ];
+	var g2 = this.g2.data.clean[ _key ];
+	g1 = ( g1 == undefined ) ? '' : g1;
+	g2 = ( g2 == undefined ) ? '' : g2;
+	var mark1 = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val short">'+ g1 +'</div>\
+	';
+	var mark2 = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val short">'+ g2 +'</div>\
+	';
+	return this.buildWrap( mark1, mark2, 'short' );
+}
+/**
+ * Build a short text item.
+ */
+gazComp.App.prototype.buildLong = function( _key ) {
+	var g1 = this.g1.data.clean[ _key ];
+	var g2 = this.g2.data.clean[ _key ];
+	g1 = ( g1 == undefined ) ? '' : g1;
+	g2 = ( g2 == undefined ) ? '' : g2;
+	var mark1 = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val long">'+ g1 +'</div>\
+	';
+	var mark2 = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val long">'+ g2 +'</div>\
+	';
+	return this.buildWrap( mark1, mark2, 'full' );
+}
+/**
+ * Build a google map info window
+ *
+ * @param { Object } _g One of the two gazetteer objects.
+ * @param { String } _class The info window class to mark which gazetteer.
+ */
+gazComp.App.prototype.buildInfoWindow = function( _g, _class ) {
 	//------------------------------------------------------------
 	//  Build the info window markup.
 	//------------------------------------------------------------
 	var markup = '\
 		<div class="info_window '+ _class +'">\
 			<div class="data_src">\
-				<span class="collection">'+ _g.collection +'</span>:\
-				<span class="id">'+ _g.id +'</span>\
-			</div>\
-			<div class="names">\
-				'+ names +'\
+				'+ _g.data.handle +'\
 			</div>\
 		</div>\
 	';
@@ -264,7 +386,7 @@ gazComp.App.prototype.mapPlot = function() {
 	var c1 = new google.maps.LatLng( self.g1.data.clean.coords[0], self.g1.data.clean.coords[1] );
 	var c2 = new google.maps.LatLng( self.g2.data.clean.coords[0], self.g2.data.clean.coords[1] );
 	//------------------------------------------------------------
-	//  Marker one
+	//  Marker and info-box one
 	//------------------------------------------------------------
 	var mark1 = new google.maps.Marker({
 		position: c1,
@@ -276,7 +398,7 @@ gazComp.App.prototype.mapPlot = function() {
 	});
 	info1.open( self.map, mark1 );
 	//------------------------------------------------------------
-	//  Marker two
+	//  Marker and info-box two
 	//------------------------------------------------------------
 	var mark2 = new google.maps.Marker({
 		position: c2,
@@ -290,10 +412,28 @@ gazComp.App.prototype.mapPlot = function() {
 	//------------------------------------------------------------
 	//  Set the map's viewport so marker bounding box is visible
 	//------------------------------------------------------------
+	self.mapFit()
+}
+/**
+ * Set the map's viewport so marker bounding box is visible
+ */
+gazComp.App.prototype.mapFit = function() {
+	var self = this;
+	//------------------------------------------------------------
+	//  Get the coordinates and mark them
+	//------------------------------------------------------------
+	var c1 = new google.maps.LatLng( self.g1.data.clean.coords[0], self.g1.data.clean.coords[1] );
+	var c2 = new google.maps.LatLng( self.g2.data.clean.coords[0], self.g2.data.clean.coords[1] );
 	var cBounds = new Array ( c1, c2 );
 	var bBox = new google.maps.LatLngBounds();
 	for ( var i = 0, len = cBounds.length; i < len; i++ ) {
 		bBox.extend ( cBounds[i] );
 	}
 	self.map.fitBounds( bBox );
+}
+/**
+ * Capitalize a string
+ */
+String.prototype.capitalize = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
 }
