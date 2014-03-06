@@ -22,14 +22,14 @@ gazComp.Data = function( _collection, _id ) {
 	//------------------------------------------------------------
 	//  Different types of templates to display items
 	//------------------------------------------------------------
-	this.templateTypes = [ 'num', 'list', 'short', 'long', 'linkList' ];
+	this.templateTypes = [ 'num', 'list', 'string', 'linkList' ];
 	//------------------------------------------------------------
 	//  Map an item type to a template type.
 	//------------------------------------------------------------
 	this.templateMap = {
 		'coords': 'list',
 		'names': 'list',
-		'description': 'long',
+		'description': 'string',
 		'citations': 'linkList'
 	};
 	this.src = null;
@@ -328,79 +328,56 @@ gazComp.App.prototype.buildWrap = function( _mark1, _mark2, _class ) {
  * Build a display for a list of links
  */
 gazComp.App.prototype.buildLinkList = function( _key ) {
-	var g1 = this.g1.data.clean[ _key ];
-	var g2 = this.g2.data.clean[ _key ];
-	g1 = ( g1 == undefined ) ? [] : g1;
-	g2 = ( g2 == undefined ) ? [] : g2;
-	for ( var i=0, ii=g1.length; i<ii; i++ ) {
-		g1[i] = '<a href="'+ g1[i] +'">'+ g1[i] +'</a>';
-	}
-	var mark1 = '\
-		<div class="key">'+ _key +'</div>\
-		<div class="val">'+ g1.join("\n") +'</div>\
-	';
-	for ( var i=0, ii=g2.length; i<ii; i++ ) {
-		g2[i] = '<a href="'+ g2[i] +'">'+ g2[i] +'</a>';
-	}
-	var mark2 = '\
-		<div class="key">'+ _key +'</div>\
-		<div class="val">'+ g2.join("\n") +'</div>\
-	';
+	var mark1 = this.buildLinkListSide( this.g1, _key );
+	var mark2 = this.buildLinkListSide( this.g2, _key );
 	return this.buildWrap( mark1, mark2, 'linkList' );
+}
+gazComp.App.prototype.buildLinkListSide = function( _g, _key ) {
+	var g = _g.data.clean[ _key ];
+	g = ( g == undefined ) ? [] : g;
+	for ( var i=0, ii=g.length; i<ii; i++ ) {
+		g[i] = '<a href="'+ g[i] +'">'+ g[i] +'</a>';
+	}
+	var markup = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val">'+ g.join("\n") +'</div>\
+	';
+	return markup;
 }
 /**
  * Build a list display item
  */
 gazComp.App.prototype.buildList = function( _key ) {
-	var g1 = this.g1.data.clean[ _key ];
-	var g2 = this.g2.data.clean[ _key ];
-	g1 = ( g1 == undefined ) ? [] : g1;
-	g2 = ( g2 == undefined ) ? [] : g2;
-	var mark1 = '\
-		<div class="key">'+ _key +'</div>\
-		<div class="val">'+ g1.join(', ') +'</div>\
-	';
-	var mark2 = '\
-		<div class="key">'+ _key +'</div>\
-		<div class="val">'+ g2.join(', ') +'</div>\
-	';
+	var mark1 = this.buildListSide( this.g1, _key );
+	var mark2 = this.buildListSide( this.g2, _key );
 	return this.buildWrap( mark1, mark2, 'list' );
 }
+gazComp.App.prototype.buildListSide = function( _g, _key ) {
+	var g = _g.data.clean[ _key ];
+	g = ( g == undefined ) ? [] : g;
+	var markup = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val">'+ g.join(', ') +'</div>\
+	';
+	return markup;
+}
+
 /**
  * Build a short text item.
  */
-gazComp.App.prototype.buildShort = function( _key ) {
-	var g1 = this.g1.data.clean[ _key ];
-	var g2 = this.g2.data.clean[ _key ];
-	g1 = ( g1 == undefined ) ? '' : g1;
-	g2 = ( g2 == undefined ) ? '' : g2;
-	var mark1 = '\
-		<div class="key">'+ _key +'</div>\
-		<div class="val">'+ g1 +'</div>\
-	';
-	var mark2 = '\
-		<div class="key">'+ _key +'</div>\
-		<div class="val">'+ g2 +'</div>\
-	';
+gazComp.App.prototype.buildString = function( _key ) {
+	var mark1 = this.buildStringSide( this.g1, _key );
+	var mark2 = this.buildStringSide( this.g2, _key );
 	return this.buildWrap( mark1, mark2, 'short' );
 }
-/**
- * Build a short text item.
- */
-gazComp.App.prototype.buildLong = function( _key ) {
-	var g1 = this.g1.data.clean[ _key ];
-	var g2 = this.g2.data.clean[ _key ];
-	g1 = ( g1 == undefined ) ? '' : g1;
-	g2 = ( g2 == undefined ) ? '' : g2;
-	var mark1 = '\
+gazComp.App.prototype.buildStringSide = function( _g, _key ) {
+	var g = _g.data.clean[ _key ];
+	g = ( g == undefined ) ? '' : g;
+	var markup = '\
 		<div class="key">'+ _key +'</div>\
-		<div class="val">'+ g1 +'</div>\
+		<div class="val">'+ g +'</div>\
 	';
-	var mark2 = '\
-		<div class="key">'+ _key +'</div>\
-		<div class="val">'+ g2 +'</div>\
-	';
-	return this.buildWrap( mark1, mark2, 'full' );
+	return markup;
 }
 /**
  * Build a google map info window
