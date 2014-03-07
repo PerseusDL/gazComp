@@ -37,5 +37,72 @@ Data sources are instances of classes that extend gazComp.Data.
 gazComp collection classes extend gazComp.Data.
 Collection classes are interfaces to retrieve data from specific gazetteer collections, for example Geonames http://www.geonames.org/ and Pleiades http://pleiades.stoa.org/.
 
-Each class must defined a custom get() method to retrieve data from the collection.
+Each class must define a custom get() method to retrieve data from the collection.
 The class must also defined a custom convert() method to change retrieved data into a standardized gazComp data object.
+
+## How to write your own.
+The constructor creates a gazComp.Data object and specifies the URL where data can be retrieved.
+
+	/**
+	 * Collection data retrieval and conversion
+	 *
+	 * @param { String } _id Collection gazetteer id
+	 */
+	gazComp.CollectionData = function( _id ) {
+		this.data = new gazComp.Data( "Geonames", _id);
+		this.url = 'http://path-to-da.ta/json/'
+	}
+
+Make the required ajax calls to retrieve all gazetteer data.
+Chain them together if you have to, but if all goes well call the convert method.
+
+	gazComp.GeonamesData.prototype.get = function() {
+		var self = this;
+		$.ajax({
+			type: 'GET',
+			url: self.url + self.data.id,
+			timeout: 5000,
+			dataType: 'json',
+			success: function( _data ) { self.convert( _data ) },
+			error: function( _data, _error, _opt ) {
+				$( document ).trigger( self.data.error, [ _error, _opt ] );
+			}
+		});
+	}
+
+The convert function creates a json object, this.data.clean, that specifies common gazetteer key-value pairs.
+At the end of your conversion code make sure you trigger the data ready event.
+
+	gazComp.GeonamesData.prototype.convert = function( _data ) {
+		var self = this;
+		self.data.src = _data;
+		//------------------------------------------------------------
+		//  Coords
+		//------------------------------------------------------------
+		self.data.clean.coords = [ _data.reprPoint[0], _data.reprPoint[1] ];
+		//------------------------------------------------------------
+		//  Names
+		//------------------------------------------------------------
+		self.data.clean.names = [];
+		for ( var i=0, ii=_data.names.length; i<ii; i++ ) {
+			self.data.clean.names.push( _data.names[i].name );
+		}
+		//------------------------------------------------------------
+		//  Citations
+		//------------------------------------------------------------
+		self.data.clean.citations = [];
+		for ( var i=0, ii=_data.citations.length; i<ii; i++ ) {
+			for ( var key in _data.citations[i] ) {
+				self.data.clean.citations.push( _data.citations[i][key] );
+			}
+		}
+		//------------------------------------------------------------
+		//  Trigger that the data is ready.
+		//------------------------------------------------------------
+		$( document ).trigger( self.data.ready );
+	}
+
+That's about it.
+
+# Improvement Wishlist
+Code that can look at raw gazetteer data and infer its type so custom convert() methods don't have to be written.
