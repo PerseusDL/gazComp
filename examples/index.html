@@ -6,23 +6,13 @@
 		<style type="text/css"></style>
 	</head>
 	<body>
-		<div id="gazComp">
-			<div id="map"></div>
-			<div id="choices">
-				<a href="" id="yes" class="choice">&#x2713;</a>
-				<a href="" id="no" class="choice">&#x2717;</a>
-				<a href="" id="dunno" class="choice">?</a>
-			</div>
-			<div id="header"></div>
-			<div id="comp"></div>
-		</div>
 	</body>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="../src/js/gazComp.js"></script>
 	<!-- Pass your API key along to retrieve the Maps API -->
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7ppibBFDEjgVih7qbhQCZMsxsdFvtfNQ&sensor=false"></script>
 	<script type="text/javascript">
-		var gaz = new gazComp.App( 'gazComp', 'http://127.0.0.1/gazComp/examples/server_script.py' );
+		var gaz = new gazComp.App( 'http://127.0.0.1/gazComp/examples/server_script.py' );
 		gaz.compare( new gazComp.GeonamesData( '2343234' ), new gazComp.PleiadesData( '83473298' ) );
 	</script>
 </html>

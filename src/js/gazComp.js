@@ -134,15 +134,34 @@ gazComp.PleiadesData.prototype.convert = function( _data ) {
 /**
  * Retrieve the mouse position in relation to the view
  *
- * @param { String } _rootId 		The id attribute of the root UI element
  * @param { String } _outputURI		The uri to send choice output 
  */
-gazComp.App = function( _rootId, _outputUri ) {
-	this.uiRoot = '#'+_rootId;
+gazComp.App = function( _outputUri ) {
+	this.id = 'gazComp';
+	this.uiRoot = '#'+this.id;
 	this.outputUri = _outputUri;
 	this.totalComp = 0;
 	this.data_sent = 'GAZCOMP.APP.DATA_SENT';
 	this.send_error = 'GAZCOMP.APP.SEND_ERROR';
+	this.buildUi();
+}
+/**
+ * Build the main structure of the user interface
+ */
+gazComp.App.prototype.buildUi = function() {
+	var ui = '\
+		<div id="gazComp">\
+			<div id="map"></div>\
+			<div id="choices">\
+				<a href="" id="yes" class="choice">&#x2713;</a>\
+				<a href="" id="no" class="choice">&#x2717;</a>\
+				<a href="" id="dunno" class="choice">?</a>\
+			</div>\
+			<div id="header"></div>\
+			<div id="comp"></div>\
+		</div>\
+	';
+	$( 'body' ).append( ui );
 }
 /**
  * Retrieve the mouse position in relation to the view
