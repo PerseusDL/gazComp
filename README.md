@@ -38,7 +38,7 @@ gazComp collection classes extend gazComp.Data.
 Collection classes are interfaces to retrieve data from specific gazetteer collections, for example Geonames http://www.geonames.org/ and Pleiades http://pleiades.stoa.org/.
 
 Each class must define a custom get() method to retrieve data from the collection.
-The class must also defined a custom convert() method to change retrieved data into a standardized gazComp data object.
+The class must also define a custom convert() method to change retrieved data into a standardized gazComp data object.
 
 ## How to write your own.
 The constructor creates a gazComp.Data object and specifies the URL where data can be retrieved.

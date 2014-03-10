@@ -225,9 +225,15 @@ gazComp.App.prototype.mapInit = function() {
 	this.map = new google.maps.Map( document.getElementById("map"), mapOptions );
 }
 /**
- * Clear the map and list
+ * Clear the map markers and list
  */
-gazComp.App.prototype.reset = function() {}
+gazComp.App.prototype.clear = function() {
+	var self = this;
+	self.mark1.setMap( null );
+	self.mark2.setMap( null );
+	$( '#header', self.uiRoot ).empty();
+	$( '#comp', self.uiRoot ).empty();
+}
 /**
  * Start the click and error listeners
  */
@@ -458,27 +464,27 @@ gazComp.App.prototype.mapPlot = function() {
 	//------------------------------------------------------------
 	//  Marker and info-box one
 	//------------------------------------------------------------
-	var mark1 = new google.maps.Marker({
+	self.mark1 = new google.maps.Marker({
 		position: c1,
 		title: 'g1'
 	});
-	mark1.setMap( self.map );
-	var info1 = new google.maps.InfoWindow({
+	self.mark1.setMap( self.map );
+	self.info1 = new google.maps.InfoWindow({
 		content: self.buildInfoWindow( self.g1, 'g1' )
 	});
-	info1.open( self.map, mark1 );
+	self.info1.open( self.map, self.mark1 );
 	//------------------------------------------------------------
 	//  Marker and info-box two
 	//------------------------------------------------------------
-	var mark2 = new google.maps.Marker({
+	self.mark2 = new google.maps.Marker({
 		position: c2,
 		title: 'g2'
 	});
-	mark2.setMap( self.map );
-	var info2 = new google.maps.InfoWindow({
+	self.mark2.setMap( self.map );
+	self.info2 = new google.maps.InfoWindow({
 		content: self.buildInfoWindow( self.g2, 'g2' )
 	});
-	info2.open( self.map, mark2 );
+	self.info2.open( self.map, self.mark2 );
 	//------------------------------------------------------------
 	//  Set the map's viewport so marker bounding box is visible
 	//------------------------------------------------------------
