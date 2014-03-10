@@ -18,11 +18,11 @@ gazComp.Data = function( _collection, _id ) {
 	//------------------------------------------------------------
 	//  What order the items are listed
 	//------------------------------------------------------------
-	this.displayOrder = [ 'coords', 'names', 'description', 'citations' ];
+	this.displayOrder = [ 'coords', 'names', 'description', 'citations', 'raw' ];
 	//------------------------------------------------------------
 	//  Different types of templates to display items
 	//------------------------------------------------------------
-	this.templateTypes = [ 'num', 'list', 'string', 'linkList' ];
+	this.templateTypes = [ 'num', 'list', 'string', 'linkList', 'json' ];
 	//------------------------------------------------------------
 	//  Map an item type to a template type.
 	//------------------------------------------------------------
@@ -30,7 +30,8 @@ gazComp.Data = function( _collection, _id ) {
 		'coords': 'list',
 		'names': 'list',
 		'description': 'string',
-		'citations': 'linkList'
+		'citations': 'linkList',
+		'raw': 'json'
 	};
 	this.src = null;
 	this.clean = {};
@@ -90,6 +91,11 @@ gazComp.GeonamesData.prototype.convert = function( _data ) {
 		}
 	}
 	//------------------------------------------------------------
+	//  Raw data
+	//------------------------------------------------------------
+	self.data.clean.raw = self.data.src;
+	
+	//------------------------------------------------------------
 	//  Trigger that the data is ready.
 	//------------------------------------------------------------
 	$( document ).trigger( self.data.ready );
@@ -125,6 +131,10 @@ gazComp.PleiadesData.prototype.convert = function( _data ) {
 	self.data.clean.coords = [ _data.reprPoint[1], _data.reprPoint[0] ];
 	self.data.clean.names = _data.names;
 	self.data.clean.description = _data.description;
+	//------------------------------------------------------------
+	//  Raw data
+	//------------------------------------------------------------
+	self.data.clean.raw = self.data.src;
 	//------------------------------------------------------------
 	//  Trigger that the data is ready.
 	//------------------------------------------------------------
@@ -363,6 +373,24 @@ gazComp.App.prototype.buildLinkListSide = function( _g, _key ) {
 	';
 	return markup;
 }
+/**
+ * Build a display for raw json data
+ */
+gazComp.App.prototype.buildJson = function( _key ) {
+	var mark1 = this.buildJsonSide( this.g1, _key );
+	var mark2 = this.buildJsonSide( this.g2, _key );
+	return this.buildWrap( mark1, mark2, 'json' );
+}
+gazComp.App.prototype.buildJsonSide = function( _g, _key ) {
+	var g = _g.data.clean[ _key ];
+	g = ( g == undefined ) ? [] : g;
+	var markup = '\
+		<div class="key">'+ _key +'</div>\
+		<div class="val"><pre>'+ JSON.stringify( g, null, " " ) +'</pre></div>\
+	';
+	return markup;
+}
+
 /**
  * Build a list display item
  */

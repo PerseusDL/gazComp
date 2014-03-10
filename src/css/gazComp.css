@@ -51,6 +51,7 @@ body {
 	font-size: 13px;
 	padding: 10px 10px 50px 10px;
 	box-sizing: border-box;
+    -moz-box-sizing: border-box;
 	width: 50%;
 	float: left;
 }
@@ -62,6 +63,7 @@ body {
 }
 #gazComp #comp .item {
 	margin-bottom: 2px;
+	word-break:break-all;
 }
 #gazComp #comp .gaz .key {
 	font-size: 10px;
@@ -92,6 +94,9 @@ body {
 #gazComp #comp .gaz.g1 .key,
 #gazComp #comp .gaz.g1 .val {
 	text-align: right;
+}
+#gazComp #comp .item.json .gaz.g1 .val {
+	text-align: left;
 }
 #gazComp #header .id,
 #gazComp .info_window .id {
